@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" centerShape="false" pickOnBounds="false" prefHeight="263.0" prefWidth="382.0" scaleShape="false" snapToPixel="false" style="-fx-background-color: #00AFC1; -fx-border-color: Black; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minicalculadorafx.MiniCalcVentanaController">
+   <children>
+      <TextField fx:id="tfResultado" editable="false" layoutX="14.0" layoutY="173.0" prefHeight="27.0" prefWidth="339.0" promptText="Resultado" style="-fx-border-color: Black;" AnchorPane.leftAnchor="14.0" />
+      <Button layoutX="52.0" layoutY="214.0" mnemonicParsing="false" onAction="#buttonBorrarHandler" text="Borrar" AnchorPane.leftAnchor="52.0" AnchorPane.topAnchor="214.0" />
+      <TextField fx:id="tfRegistro" editable="false" layoutX="14.0" layoutY="125.0" prefHeight="27.0" prefWidth="339.0" promptText="Registro" style="-fx-border-color: black;" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="125.0" />
+      <Pane layoutX="160.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="202.0" style="-fx-background-color: #006778; -fx-border-color: black;">
+         <children>
+            <Button layoutX="14.0" layoutY="58.0" mnemonicParsing="false" onAction="#buttonRestarHandler" prefHeight="27.0" prefWidth="57.0" text="Resta" />
+            <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#buttonSumarHandler" prefHeight="27.0" prefWidth="57.0" text="Suma" />
+            <Button layoutX="97.0" layoutY="58.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#buttonDividirHandler" prefHeight="26.0" prefWidth="97.0" text="Division" />
+            <Button layoutX="97.0" layoutY="17.0" mnemonicParsing="false" onAction="#buttonMultiplicarHandler" prefHeight="27.0" prefWidth="97.0" text="Multiplicacion" />
+         </children>
+      </Pane>
+      <Button layoutX="281.0" layoutY="216.0" mnemonicParsing="false" onAction="#buttonSalirHandler" text="Salir" AnchorPane.leftAnchor="281.0" AnchorPane.topAnchor="216.0" />
+      <TextField fx:id="tfNumero1" layoutX="14.0" layoutY="68.0" prefHeight="26.0" prefWidth="113.0" promptText="Numero" style="-fx-border-color: black;" />
+      <Label layoutX="17.0" layoutY="14.0" prefHeight="27.0" prefWidth="123.0" style="-fx-border-radius: 2; -fx-border-color: Black; -fx-background-color: #FFD124;" text="  Calculadora enteros" />
+   </children>
+</AnchorPane>

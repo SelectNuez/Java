@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" centerShape="false" pickOnBounds="false" prefHeight="263.0" prefWidth="382.0" scaleShape="false" snapToPixel="false" style="-fx-background-color: #00AFC1; -fx-border-color: Black; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PROG10.FXMLController">
+    <children>
+        <TextField fx:id="tfResultado" editable="false" layoutX="33.0" layoutY="215.0" prefHeight="27.0" prefWidth="113.0" promptText="Resultado" style="-fx-border-color: Black;" AnchorPane.leftAnchor="33.0" />
+        <Button layoutX="230.0" layoutY="214.0" mnemonicParsing="false" onAction="#buttonBorrarHandler" text="Borrar" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="214.0" />
+        <TextField fx:id="tfRegistro" editable="false" layoutX="228.0" layoutY="179.0" prefHeight="27.0" prefWidth="113.0" promptText="Registro" style="-fx-border-color: black;" AnchorPane.leftAnchor="228.0" AnchorPane.topAnchor="179.0" />
+        <Pane layoutX="228.0" layoutY="17.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="156.0" prefWidth="113.0" style="-fx-background-color: #006778; -fx-border-color: black;">
+            <children>
+                <Button layoutX="30.0" layoutY="43.0" mnemonicParsing="false" onAction="#buttonRestarHandler" prefHeight="27.0" prefWidth="57.0" text="Resta" />
+                <Button layoutX="30.0" layoutY="8.0" mnemonicParsing="false" onAction="#buttonSumarHandler" prefHeight="27.0" prefWidth="57.0" text="Suma" />
+                <Button layoutX="8.0" layoutY="116.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#buttonDividirHandler" prefHeight="26.0" prefWidth="97.0" text="Division" />
+                <Button layoutX="8.0" layoutY="78.0" mnemonicParsing="false" onAction="#buttonMultiplicarHandler" prefHeight="27.0" prefWidth="97.0" text="Multiplicacion" />
+            </children>
+        </Pane>
+        <Button layoutX="302.0" layoutY="216.0" mnemonicParsing="false" onAction="#buttonSalirHandler" text="Salir" AnchorPane.leftAnchor="302.0" AnchorPane.topAnchor="216.0" />
+        <TextField fx:id="tfNumero1" layoutX="34.0" layoutY="168.0" prefHeight="26.0" prefWidth="113.0" promptText="Numero" style="-fx-border-color: black;" />
+        <Label layoutX="17.0" layoutY="14.0" prefHeight="27.0" prefWidth="123.0" style="-fx-border-radius: 2; -fx-border-color: Black; -fx-background-color: #FFD124;" text="  Calculadora enteros" />
+      <Pane layoutX="11.0" layoutY="46.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="109.0" prefWidth="208.0" style="-fx-background-color: #006778; -fx-border-color: black;">
+         <children>
+            <Button layoutX="7.0" layoutY="14.0" mnemonicParsing="false" onAction="#button0" text="0" />
+            <Button layoutX="50.0" layoutY="14.0" mnemonicParsing="false" onAction="#button1" text="1" />
+            <Button layoutX="93.0" layoutY="14.0" mnemonicParsing="false" onAction="#button2" text="2" />
+            <Button layoutX="136.0" layoutY="14.0" mnemonicParsing="false" onAction="#button3" text="3" />
+            <Button layoutX="179.0" layoutY="14.0" mnemonicParsing="false" onAction="#button4" text="4" />
+            <Button layoutX="7.0" layoutY="55.0" mnemonicParsing="false" onAction="#button5" text="5" />
+            <Button layoutX="50.0" layoutY="55.0" mnemonicParsing="false" onAction="#button6" text="6" />
+            <Button layoutX="93.0" layoutY="55.0" mnemonicParsing="false" onAction="#button7" text="7" />
+            <Button layoutX="136.0" layoutY="55.0" mnemonicParsing="false" onAction="#button8" text="8" />
+            <Button layoutX="179.0" layoutY="55.0" mnemonicParsing="false" onAction="#button9" text="9" />
+         </children>
+      </Pane>
+    </children>
+</AnchorPane>
