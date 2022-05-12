@@ -1,26 +1,28 @@
 package main;
 
+import Aleatorios.Rndm;
 import java.util.*;
 import javax.swing.JOptionPane;
 
 public class Capitales {
 
     private static int lenHash;
-    HashMap<String, String> capitales_europeas = new HashMap<String, String>();
+    private HashMap<String, String> capitales_europeas = new HashMap<String, String>();
     private static int numPreg = 5;
 
     /**
-     * Preguntamos al usuario cuantas preguntas quiere
-     * Y si se pasa de las que tiene el HashMap le preguntaremos
-     * para saber cuantas quiere, si el maximo o la default
-     * @param numPreg  El numero de preguntas que quiere el usuario
+     * Preguntamos al usuario cuantas preguntas quiere Y si se pasa de las que
+     * tiene el HashMap le preguntaremos para saber cuantas quiere, si el maximo
+     * o la default
+     *
+     * @param numPreg El numero de preguntas que quiere el usuario
      */
     public static void setNumPreg(int numPreg) {
-        if (numPreg > getLenHash()) {
-            JOptionPane.showMessageDialog(null, "Has excedido el numero maximo de respuestas, el limite es: " + getLenHash());
-            int input = JOptionPane.showConfirmDialog(null, "¿Quieres participar con " + getLenHash() + " preguntas?");
+        if (numPreg > Capitales.lenHash) {
+            JOptionPane.showMessageDialog(null, "Has excedido el numero maximo de respuestas, el limite es: " + Capitales.lenHash);
+            int input = JOptionPane.showConfirmDialog(null, "¿Quieres participar con " + Capitales.lenHash + " preguntas?");
             if (input == 0) {
-                Capitales.numPreg = getLenHash();
+                Capitales.numPreg = Capitales.lenHash;
             } else {
                 JOptionPane.showMessageDialog(null, "Se ha establecido 5 preguntas");
             }
@@ -34,7 +36,7 @@ public class Capitales {
     public static int getNumPreg() {
         return numPreg;
     }
-    
+
     public Capitales() {
 
         capitales_europeas.put("Albania", "Tirana");
@@ -88,41 +90,48 @@ public class Capitales {
      *
      * @return Longitud del HashMap
      */
-    public static int getLenHash() {
-        return lenHash;
-    }
 
     /**
-     * Repetimos dentro de un bucle segun el numero de preguntas
-     * Dentro de el y para cada entrada del HashMap llamamos a otro metodo
-     * para que nos las verique
-     *@see comprobarPregunta
+     * Repetimos dentro de un bucle segun el numero de preguntas Dentro de el y
+     * para cada entrada del HashMap llamamos a otro metodo para que nos las
+     * verique
+     *
+     * @see comprobarPregunta
      * @see resultado
      * @return String con la explicacion de cuantas has acertado o fallado
      */
     public String getPregunta() {
-        Rndm rndm = new Rndm();
+        Rndm rndm = new Rndm(lenHash);
+        ArrayList<Integer> rand = new ArrayList();
         int bien = 0;
         for (int i = 0; i < numPreg; i++) {
-            int rand = rndm.numeros.get(i);
+            rand = rndm.getNumeros();
+
+//            int rand = rndm.numeros.get(i);
+            int numrand = rand.get(i);
             //Comienza el contador, que se igualara en el index correcto para mostrar el Hash que queremos
             int cont = 0;
             for (Map.Entry<String, String> entrada : capitales_europeas.entrySet()) {
                 cont++;
-                if (comprobarPregunta(cont, rand, entrada)) {
+                if (comprobarPregunta(cont, numrand, entrada)) {
                     bien++;
+                    
                 }
             }
         }
         return this.resultado(bien);
     }
-/**
- * Se va a llamar a este metodo las veces que sea necesario segun el numero de preguntas
- * @param cont Contador que indica el index del objeto
- * @param rand Numero aleatorio que indica lo que preguntar en cada pregunta
- * @param entrada El HashMap en formato Map.Entry para poder sacar sus valores
- * @return 
- */
+
+    /**
+     * Se va a llamar a este metodo las veces que sea necesario segun el numero
+     * de preguntas
+     *
+     * @param cont Contador que indica el index del objeto
+     * @param rand Numero aleatorio que indica lo que preguntar en cada pregunta
+     * @param entrada El HashMap en formato Map.Entry para poder sacar sus
+     * valores
+     * @return
+     */
     public boolean comprobarPregunta(int cont, int rand, Map.Entry<String, String> entrada) {
         if (cont == rand) {
 
@@ -131,7 +140,7 @@ public class Capitales {
             String hashcapi = entrada.getValue().toLowerCase();
             //Lo asignamos a minusculas
             String capital = JOptionPane.showInputDialog("Introduzca la capital de: " + hashpais).toLowerCase();
-            
+
             if (hashcapi.equals(capital)) {
                 JOptionPane.showMessageDialog(null, "Respuesta correcta!");
                 return true;
@@ -143,11 +152,12 @@ public class Capitales {
         }
         return false;
     }
-/**
- * 
- * @param bien
- * @return 
- */
+
+    /**
+     *
+     * @param bien
+     * @return
+     */
     public String resultado(int bien) {
         return "Has tenido: " + bien + " respuestas correctas\n"
                 + "Has tenido: " + (numPreg - bien) + " respuestas incorrectas";

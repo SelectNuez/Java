@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 public class parking {
 
     private ArrayList<String> residentes;
-    ArrayList<Coche> particulares;
+    private ArrayList<Coche> particulares;
 
     public parking() {
 

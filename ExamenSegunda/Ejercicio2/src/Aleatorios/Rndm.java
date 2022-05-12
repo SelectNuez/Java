@@ -1,22 +1,22 @@
-package main;
+package Aleatorios;
 
 import java.util.ArrayList;
 import java.util.Random;
+import main.Capitales;
 
 public class Rndm {
 
-    ArrayList<Integer> numeros = new ArrayList<>();
-    Random rand = new Random();
+  private ArrayList<Integer> numeros = new ArrayList<>();
+  private  Random rand = new Random();
    
     
 //Genera numeros aleatorios y los almacena en un array
-    public Rndm() {
-        int leng = Capitales.getLenHash();
+    public Rndm(int max) {
         int numRand;
-        for (int i = 0; i < Capitales.getNumPreg(); i++) {
-            numRand = rand.nextInt(leng);
+        for (int i = 0; i < max; i++) {
+            numRand = rand.nextInt(max);
             while (numeros.contains(numRand)) {
-                numRand = rand.nextInt(leng);
+                numRand = rand.nextInt(max);
             }
             numeros.add(numRand);
         }
@@ -25,6 +25,8 @@ public class Rndm {
  * 
  * @return Un array con los numeros aleatorios solicitados 
  */
+    
+    
     public ArrayList<Integer> getNumeros() {
         return numeros;
     }
