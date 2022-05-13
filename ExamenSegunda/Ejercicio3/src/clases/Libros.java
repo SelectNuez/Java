@@ -5,8 +5,10 @@
 package clases;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import javax.swing.JOptionPane;
+import util.date;
 
 /**
  *
@@ -17,13 +19,11 @@ public class Libros {
     /**
      * Mediante el String comprueba si el libro existe y si lo hace sealiza la
      * modificacion deseada
-     *
-     * @param ISBN ISBN unico del libro
      * @param con Conexion con BBDD
      * @return Mensaje si se han podido realizar los cambios o no
      * @see existeLibro
      */
-    public static String modificaLibro( Connection con) {
+    public static String modificaLibro(Connection con) {
         String mensaje = "No se han realizado cambios";
         try {
 
@@ -42,10 +42,10 @@ public class Libros {
             } else if (option == 1) {
                 int tempOp = JOptionPane.showConfirmDialog(null, "¿Desea cambiar la editorial del libro?");
                 if (tempOp == 0) {
-                    String editorial_new = JOptionPane.showInputDialog("Introduzca la editorial antigua");
-                    String editorial_old = JOptionPane.showInputDialog("Introduzca la nueva editorial");
+                    String editorial_old = JOptionPane.showInputDialog("Introduzca la editorial antigua");
+                    String editorial_new = JOptionPane.showInputDialog("Introduzca la nueva editorial");
                     if (Libros.existeLibro(editorial_old, con)) {
-                        s.executeUpdate("UPDATE biblioteca SET editorial = \"" + editorial_new + "\" WHERE editorial = \"" + editorial_old + "\"");
+                        s.executeUpdate("UPDATE Libros SET editorial = \"" + editorial_new + "\" WHERE editorial = \"" + editorial_old + "\"");
                         mensaje = "Cambio realizado con exito";
                     } else {
                         mensaje = "Imposible modificar libro no encontrado";
@@ -59,6 +59,24 @@ public class Libros {
         }
         return mensaje;
     }
+/**
+ * Comprueba si existe un libro
+ * @param id_libro Identificador libro
+ * @param con Conexion con la BBDD
+ * @return Boolean de la existencia del libro
+ */
+    public static boolean existeLibro(int id_libro, Connection con) {
+        try {
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery("Select * from Libros where id_libro = \"" + id_libro + "\"");
+            return rs.next();
+
+        } catch (SQLException ex) {
+            System.out.print("SQL Exception: " + ex.toString());
+        }
+
+        return false;
+    }
 
     /**
      * Comprueba si existe el libro buscado
@@ -70,7 +88,7 @@ public class Libros {
     public static boolean existeLibro(String parametro, Connection con) {
         try {
             Statement s = con.createStatement();
-            ResultSet rs = s.executeQuery("Select * from biblioteca where titulo = \"" + parametro + "\" OR editorial=\"" + parametro + "\"");
+            ResultSet rs = s.executeQuery("Select * from Libros where titulo = \"" + parametro + "\" OR editorial=\"" + parametro + "\"");
             return rs.next();
 
         } catch (SQLException ex) {
@@ -91,12 +109,16 @@ public class Libros {
         ArrayList<String> datos = new ArrayList<>();
         try {
             Statement s = con.createStatement();
-            ResultSet rs = s.executeQuery("Select * from biblioteca where titulo = \"" + parametro + "\" OR editorial=\"" + parametro + "\"");
+            ResultSet rs = s.executeQuery("Select * from Libros where titulo = \"" + parametro + "\" OR editorial=\"" + parametro + "\"");
             if (rs.next() == true) {
                 do {
-                    datos.add("ISBN: " + rs.getString(1) + "\n"
-                            + "Titulo: " + rs.getString(2) + "\n"
-                            + "Editorial: " + rs.getString(3) + "\n");
+                    datos.add("Id: " + rs.getString("Id_Libro") + "\n"
+                            + "Titulo: " + rs.getString("Titulo") + "\n"
+                            + "Numero de ejemplares: " + rs.getString("Num_ejemplares") + "\n"
+                            + "Editorial: " + rs.getString("Editorial") + "\n"
+                            + "Numero de paginas: " + rs.getString("Num_paginas") + "\n"
+                            + "Fecha de edicion: " + rs.getString("Fecha_edicion") + "\n"
+                    );
                 } while (rs.next());
 
             } else {
@@ -116,10 +138,10 @@ public class Libros {
      * @param conConexion con BBDD
      * @return Boolean con la existencia del libro
      */
-    public static boolean existeSocio(String id_Socio, Connection con) {
+    public static boolean existeSocio(int id_Socio, Connection con) {
         try {
             Statement s = con.createStatement();
-            ResultSet rs = s.executeQuery("Select * from socio where id_Socio = \"" + id_Socio + "\"");
+            ResultSet rs = s.executeQuery("Select * from Socios where id_Socio = \"" + id_Socio + "\"");
             if (rs.next() == true) {
                 return true;
             }
@@ -130,26 +152,62 @@ public class Libros {
 
         return false;
     }
+/**
+ * Se realiza un nuevo prestamo y se une en libro con el socio que lo posee
+ * @param id_libro Identificador del libro
+ * @param id_Socio Identificador del Socio
+ * @param con Conexion con la BBDD
+ * @return Indicacion de como se ha realizado el prestamo
+ */
+    public static String nuevoPrestamo(int id_libro, int id_Socio, Connection con) {
 
-//    public static String nuevoPrestamo(String nombreLibro, String id_Socio, Connection con) {
-//
-//        try {
-//            Statement s = con.createStatement();
-//            if (Libros.existeLibro(nombreLibro, con)) {
-//                if (Libros.existeSocio(id_Socio, con)) {
-//                    Statement s = con.createStatement();
-//                    s.executeUpdate("Insert into biblioteca values("null",\"" + nombreLibro + "\",\"" +    
-//                    )
-//                } else {
-//                    return "No se ha encontrado el Socio indicado";
-//                }
-//            } else {
-//                return "No se ha encontrado el Libro deseado";
-//
-//            }
-//        } catch (SQLException ex) {
-//            System.out.println("SQL Exception: " + ex.toString());
-//        }
-//        return null;
-//    }
+        try {
+
+            if (Libros.existeLibro(id_libro, con)) {
+                if (Libros.existeSocio(id_Socio, con)) {
+                    Statement s = con.createStatement();
+                    s.executeUpdate("insert into Prestamos values(" + id_libro + "," + id_Socio + "," + date.fechaHoy() + ",null)");
+                    return "Se ha realizado el nuevo prestamo";
+                } else {
+                    return "No se ha encontrado el Socio indicado";
+                }
+            } else {
+                return "No se ha encontrado el Libro deseado";
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQL Exception: " + ex.toString());
+        }
+        return null;
+    }
+/**
+ * Consulta los libros de un Socio
+ * @param nombre Nombre del Socio
+ * @param con Conexion con la BBDD
+ * @return Una lista con todos los datos de cada libro
+ */
+    public static ArrayList<String> consultaLibrosSocio(String nombre, Connection con) {
+        ArrayList<String> datos = new ArrayList<>();
+        try {
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery("select s.nombre_socio,l.titulo,l.editorial,p.Fecha_inicio,p.fecha_fin from libros l,prestamos p, socios s where p.id_libro = l.id_libro and s.id_socio = p.id_socio and s.nombre_socio = \"" + nombre + "\"");
+            if (rs.next() == true) {
+                do {
+                    datos.add("Nombre socio: " + rs.getString("s.nombre_socio") + "\n"
+                            + "Titulo: " + rs.getString("l.titulo") + "\n"
+                            + "Editorial: " + rs.getString("l.editorial") + "\n"
+                            + "Fecha inicio del prestamo: " + rs.getString("p.Fecha_inicio") + "\n"
+                            + "Fecha devolucion" + rs.getString("p.fecha_fin"));
+                } while (rs.next());
+
+            } else {
+                datos.add("No se ha encontrado el Socio");
+            }
+        } catch (SQLException ex) {
+            System.out.print("SQL Exception: " + ex.toString());
+        }
+
+        return datos;
+    }
+
 }

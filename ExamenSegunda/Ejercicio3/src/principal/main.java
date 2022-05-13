@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 import bbdd.*;
 import clases.Libros;
 import java.sql.*;
+
 /*
 1.- Modificación de libros: Se modificará el título y/o la editorial. Si no existe el libro se mostrará el mensaje “Imposible modificar libro no encontrado”.
 2.- Consulta de libros: Se realizará una consulta de libros por diferentes criterios: titulo o editorial. Se mostrarán todos los libros que cumplan el criterio de búsqueda o el mensaje “No se obtuvieron resultados” en caso negativo.
@@ -15,7 +16,7 @@ public class main {
     public static void main(String[] args) {
         ConnectionDB mysql = new ConnectionDB();
         Connection con = ConnectionDB.openConnection();
-        
+
         String ISBN;
         int menu = 0;
         do {
@@ -29,8 +30,7 @@ public class main {
 
             switch (menu) {
                 case 1:
-                    ISBN = JOptionPane.showInputDialog("Introduzca el ISBN del libro que quiere modificar");
-                    JOptionPane.showMessageDialog(null,Libros.modificaLibro(con));
+                    JOptionPane.showMessageDialog(null, Libros.modificaLibro(con));
                     break;
                 case 2:
                     String parametro = JOptionPane.showInputDialog("Introduce el Titulo o la editorial del que deseas obtener los datos");
@@ -40,12 +40,18 @@ public class main {
 
                     break;
                 case 3:
-
+                    int id_libro = Integer.parseInt(JOptionPane.showInputDialog("Introduce el ID del libro a prestar"));
+                    int id_socio = Integer.parseInt(JOptionPane.showInputDialog("Introduce el ID del socio"));
+                    Libros.nuevoPrestamo(id_libro, id_socio, con);
                     break;
                 case 4:
-
+                    String nombre = JOptionPane.showInputDialog("Introduzca el nombre del Socio del que quieres obtener los datos de sus prestamos");
+                    for (String consultaLibrosSocio : Libros.consultaLibrosSocio(nombre, con)) {
+                        JOptionPane.showMessageDialog(null, consultaLibrosSocio);
+                    }
                     break;
                 case 5:
+                        JOptionPane.showMessageDialog(null, "Hasta la proxima!");
 
                     break;
                 default:
