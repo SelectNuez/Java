@@ -30,7 +30,7 @@ public class main {
             switch (menu) {
                 case 1:
                     ISBN = JOptionPane.showInputDialog("Introduzca el ISBN del libro que quiere modificar");
-                    JOptionPane.showMessageDialog(null,Libros.modificaLibro(ISBN, con));
+                    JOptionPane.showMessageDialog(null,Libros.modificaLibro(con));
                     break;
                 case 2:
                     String parametro = JOptionPane.showInputDialog("Introduce el Titulo o la editorial del que deseas obtener los datos");

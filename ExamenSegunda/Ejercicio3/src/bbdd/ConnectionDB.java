@@ -14,10 +14,10 @@ import javax.swing.JOptionPane;
  * @author Blitz
  */
 public class ConnectionDB {
-    private static String db = "biblioteca";
+    private static String db = "prestamos";
     private static String url = "jdbc:mysql://localhost/" + db;
-    private static String user = "biblioteca";
-    private static String pass = "biblioteca";
+    private static String user = "prestamos";
+    private static String pass = "prestamos";
     private static Connection conn = null;
 
     /**
