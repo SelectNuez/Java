@@ -6,6 +6,7 @@ El programa nos pedirá el nombre del alumno para a continuación no irá pidien
 
 He añadido una mejora para poder definir el numero de preguntas
 */
+import objetos.Capitales;
 import javax.swing.JOptionPane;
 
 public class Ejercicio2 {

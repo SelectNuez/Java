@@ -2,7 +2,6 @@ package Aleatorios;
 
 import java.util.ArrayList;
 import java.util.Random;
-import main.Capitales;
 
 public class Rndm {
 

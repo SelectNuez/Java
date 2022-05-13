@@ -1,4 +1,4 @@
-package main;
+package objetos;
 
 import Aleatorios.Rndm;
 import java.util.*;
