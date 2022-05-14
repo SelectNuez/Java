@@ -1,19 +1,24 @@
 package objetos;
 
-
-import objetos.*;
 import Datos.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class parking {
-        private ArrayList<String> residentes;
-        private ArrayList<Coche> particulares;
+
+    private ArrayList<String> residentes;
+    private ArrayList<Coche> particulares;
+
     public parking() {
+        try{
         datos datos = new datos();
         residentes = datos.meterDatosresidentes();
         particulares = datos.meterDatosParticulares();
-       
+        }
+        catch(Exception e)
+        {
+            System.out.println("Ha fallado la importacion de datos");
+        }
     }
 
     /**
