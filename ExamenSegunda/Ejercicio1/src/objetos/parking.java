@@ -1,11 +1,10 @@
-package main;
+package objetos;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
-
+import objetos.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -15,7 +14,7 @@ public class parking {
     private ArrayList<Coche> particulares;
 
     public parking() {
-
+        
         residentes = new ArrayList<>();
         residentes.add("5349DYB");
         residentes.add("1129CBZ");
@@ -117,17 +116,17 @@ public class parking {
         }
     }
 
-    public String pagar(String matricula,long tiempo) {
+    public String pagar(String matricula, long tiempo) {
         String mensaje = "Este vehiculo no tiene que pagar";
-        double precio= 0;
+        double precio = 0;
         for (Coche particular : particulares) {
-            if(particular.getMatricula().equals(matricula) && particular.isPagado() == false){
-                precio = Math.round(tiempo*0.001);
-                mensaje = "Se debe pagar: " + precio/100 + " €";
+            if (particular.getMatricula().equals(matricula) && particular.isPagado() == false) {
+                precio = Math.round(tiempo * 0.001);
+                mensaje = "Se debe pagar: " + precio / 100 + " €";
                 particular.setPagado(true);
             }
         }
-        
+
         return mensaje;
     }
 }

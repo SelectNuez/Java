@@ -11,6 +11,7 @@ Menú:
 4.- Cobrar por el tiempo estacionado. Nos mostrará un mensaje con la cantidad a pagar y se cambiará el campo pagado a true. 
 
 */
+import objetos.parking;
 import java.awt.HeadlessException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
