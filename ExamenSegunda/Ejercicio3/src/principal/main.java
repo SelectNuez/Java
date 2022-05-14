@@ -16,7 +16,7 @@ public class main {
     public static void main(String[] args) {
         ConnectionDB mysql = new ConnectionDB();
         Connection con = ConnectionDB.openConnection();
-
+        String nombre;
         String ISBN;
         int menu = 0;
         do {
@@ -26,7 +26,8 @@ public class main {
                     + "2.Consultar un libro.\n"
                     + "3.Realizar un prestamo\n"
                     + "4.Listado de libros y prestamos\n"
-                    + "5.Salir."));
+                    + "5.Borrar de libros\n"
+                    + "6.Salir."));
 
             switch (menu) {
                 case 1:
@@ -45,20 +46,29 @@ public class main {
                     Libros.nuevoPrestamo(id_libro, id_socio, con);
                     break;
                 case 4:
-                    String nombre = JOptionPane.showInputDialog("Introduzca el nombre del Socio del que quieres obtener los datos de sus prestamos");
+                    nombre = JOptionPane.showInputDialog("Introduzca el nombre del Socio del que quieres obtener los datos de sus prestamos");
                     for (String consultaLibrosSocio : Libros.consultaLibrosSocio(nombre, con)) {
                         JOptionPane.showMessageDialog(null, consultaLibrosSocio);
                     }
                     break;
                 case 5:
-                        JOptionPane.showMessageDialog(null, "Hasta la proxima!");
+                    nombre = JOptionPane.showInputDialog("Introduzca el nombre del libro que desea borrar");
+
+                    break;
+                case 6:
+                    JOptionPane.showMessageDialog(null, "Hasta la proxima!");
 
                     break;
                 default:
-
+                    JOptionPane.showMessageDialog(null, "Introduzca una opcion valida");
             }
 
         } while (menu != 5);
+        /*
+            Si deseamos abrir la conexion en cada metodo:
+         Connection conn = ConnectionDB.openConnection();
+         */
+        ConnectionDB.closeConnection();
     }
 
 }

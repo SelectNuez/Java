@@ -19,6 +19,7 @@ public class Libros {
     /**
      * Mediante el String comprueba si el libro existe y si lo hace sealiza la
      * modificacion deseada
+     *
      * @param con Conexion con BBDD
      * @return Mensaje si se han podido realizar los cambios o no
      * @see existeLibro
@@ -57,14 +58,17 @@ public class Libros {
         } catch (SQLException ex) {
             System.out.println("SQL Exeption: " + ex.toString());
         }
+        
         return mensaje;
     }
-/**
- * Comprueba si existe un libro
- * @param id_libro Identificador libro
- * @param con Conexion con la BBDD
- * @return Boolean de la existencia del libro
- */
+
+    /**
+     * Comprueba si existe un libro
+     *
+     * @param id_libro Identificador libro
+     * @param con Conexion con la BBDD
+     * @return Boolean de la existencia del libro
+     */
     public static boolean existeLibro(int id_libro, Connection con) {
         try {
             Statement s = con.createStatement();
@@ -152,13 +156,15 @@ public class Libros {
 
         return false;
     }
-/**
- * Se realiza un nuevo prestamo y se une en libro con el socio que lo posee
- * @param id_libro Identificador del libro
- * @param id_Socio Identificador del Socio
- * @param con Conexion con la BBDD
- * @return Indicacion de como se ha realizado el prestamo
- */
+
+    /**
+     * Se realiza un nuevo prestamo y se une en libro con el socio que lo posee
+     *
+     * @param id_libro Identificador del libro
+     * @param id_Socio Identificador del Socio
+     * @param con Conexion con la BBDD
+     * @return Indicacion de como se ha realizado el prestamo
+     */
     public static String nuevoPrestamo(int id_libro, int id_Socio, Connection con) {
 
         try {
@@ -180,12 +186,14 @@ public class Libros {
         }
         return null;
     }
-/**
- * Consulta los libros de un Socio
- * @param nombre Nombre del Socio
- * @param con Conexion con la BBDD
- * @return Una lista con todos los datos de cada libro
- */
+
+    /**
+     * Consulta los libros de un Socio
+     *
+     * @param nombre Nombre del Socio
+     * @param con Conexion con la BBDD
+     * @return Una lista con todos los datos de cada libro
+     */
     public static ArrayList<String> consultaLibrosSocio(String nombre, Connection con) {
         ArrayList<String> datos = new ArrayList<>();
         try {
@@ -208,6 +216,22 @@ public class Libros {
         }
 
         return datos;
+    }
+
+    public static String borrado(String titulo, Connection con) {
+        String mensaje = "No se ha encontrado el libro";
+        try {
+            if (existeLibro(titulo, con)) {
+                Statement s = con.createStatement();
+                //Si se desease tener el numero de registros borrados valdria con asignar una variable al executeUpdate
+                s.executeUpdate("Delete from libros where titulo = \"" + titulo + "\"");
+                mensaje = "Borrado realizado con exito";
+            }
+
+        } catch (SQLException ex) {
+            System.out.print("SQL Exception: " + ex.toString());
+        }
+        return mensaje;
     }
 
 }
