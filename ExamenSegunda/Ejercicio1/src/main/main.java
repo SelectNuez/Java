@@ -75,8 +75,9 @@ public class main {
                 }
 
             } while (menu != 5);
-        } catch (HeadlessException | NumberFormatException | ParseException e) {
+        } catch (HeadlessException | NumberFormatException | ParseException e ) {
             e.printStackTrace();
+            System.out.println("Ha ocurrido un error");
         }
     }
 }
