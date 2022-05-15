@@ -14,7 +14,6 @@ import java.sql.*;
 public class main {
 
     public static void main(String[] args) {
-        ConnectionDB mysql = new ConnectionDB();
         Connection con = ConnectionDB.openConnection();
         String nombre;
         String ISBN;
@@ -63,7 +62,7 @@ public class main {
                     JOptionPane.showMessageDialog(null, "Introduzca una opcion valida");
             }
 
-        } while (menu != 5);
+        } while (menu != 6);
         /*
             Si deseamos abrir la conexion en cada metodo:
          Connection conn = ConnectionDB.openConnection();
