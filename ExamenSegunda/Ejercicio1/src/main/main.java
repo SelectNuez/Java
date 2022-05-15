@@ -1,4 +1,5 @@
 package main;
+
 /*
 Se pretende realizar una aplicación en Java que simule un parking, en el cual  se pueden estacionar vehículos por un tiempo limitado. 
 De todos los vehículos hay que guardar su matrícula, la fecha/hora de entrada en el aparcamiento y si se trata de un vehículo con abono.
@@ -10,7 +11,7 @@ Menú:
 3.- Coches dentro del parking. Solo los de los vehículos particulares.
 4.- Cobrar por el tiempo estacionado. Nos mostrará un mensaje con la cantidad a pagar y se cambiará el campo pagado a true. 
 
-*/
+ */
 import objetos.parking;
 import java.awt.HeadlessException;
 import java.text.ParseException;
@@ -18,31 +19,19 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import utilidades.calculoTiempo;
 
 public class main {
 
     public static void main(String[] args) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
-        Calendar calendar = Calendar.getInstance();
-
-        Date dateObj = calendar.getTime();
-        String fecha_hora_entrada = sdf.format(dateObj);
-
-        String fecha_hora_salida = ("22-05-2022 19:58:01");
-
-        try {
-            Date d1 = sdf.parse(fecha_hora_entrada);
-            Date d2 = sdf.parse(fecha_hora_salida);
-
-            long diferencia_tiempo = (d2.getTime() - d1.getTime()) / 1000;
-
-            parking parking = new parking();
-            boolean residente = false;
-            String matricula;
-            String fecha;
-            int menu = 0;
-            do {
+        parking parking = new parking();
+        boolean residente = false;
+        String matricula;
+        String fecha;
+        int menu = 0;
+        do {
+            try {
 
                 menu = Integer.parseInt(JOptionPane.showInputDialog(
                         "1.Entra un coche.\n"
@@ -54,6 +43,7 @@ public class main {
                 switch (menu) { //Creo el menu
                     case 1:
                         matricula = JOptionPane.showInputDialog("Introduce la matricula: ");
+                        String fecha_hora_entrada = calculoTiempo.obtenerHora();
                         JOptionPane.showMessageDialog(null, parking.entraCoche(matricula, fecha_hora_entrada));
                         break;
                     case 2:
@@ -65,7 +55,7 @@ public class main {
                         break;
                     case 4:
                         matricula = JOptionPane.showInputDialog("Introduce la matricula: ");
-                        JOptionPane.showMessageDialog(null, parking.pagar(matricula, diferencia_tiempo));
+                        JOptionPane.showMessageDialog(null, parking.pagar(matricula));
                         break;
                     case 5:
                         JOptionPane.showMessageDialog(null, "Gracias por utilizar esta aplicacion, esperamos verte pronto");
@@ -74,10 +64,13 @@ public class main {
                         JOptionPane.showMessageDialog(null, "La opcion introducida no es valida");
                 }
 
-            } while (menu != 5);
-        } catch (HeadlessException | NumberFormatException | ParseException e ) {
-            e.printStackTrace();
-            System.out.println("Ha ocurrido un error");
-        }
+            } catch (java.lang.NumberFormatException e) {
+                menu = 5;
+            }
+            catch (Exception e) {
+                System.out.println("Ha ocurrido un error");
+            }
+        } while (menu != 5);
+
     }
 }

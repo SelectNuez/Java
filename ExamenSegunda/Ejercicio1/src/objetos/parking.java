@@ -1,8 +1,10 @@
 package objetos;
 
 import Datos.*;
+import java.text.ParseException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import utilidades.calculoTiempo;
 
 public class parking {
 
@@ -102,11 +104,13 @@ public class parking {
         }
     }
 
-    public String pagar(String matricula, long tiempo) {
+    public String pagar(String matricula) throws ParseException {
         String mensaje = "Este vehiculo no tiene que pagar";
         double precio = 0;
         for (Coche particular : particulares) {
             if (particular.getMatricula().equals(matricula) && particular.isPagado() == false) {
+                long tiempo;
+                tiempo = calculoTiempo.calcularDiferencia(particular.getFecha());
                 precio = Math.round(tiempo * 0.001);
                 mensaje = "Se debe pagar: " + precio / 100 + " €";
                 particular.setPagado(true);

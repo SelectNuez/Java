@@ -38,7 +38,6 @@ return residentes;
         particulares.add(new Coche("5566BNM", "27-04-2022 11:31:40", false));
         particulares.add(new Coche("6677BJK", "27-04-2022 12:37:40", false));
         particulares.add(new Coche("7788DFR", "27-04-2022 13:39:40", false));
-        particulares.add(new Coche("7788DFR", "27-04-2022 13:39:40", false));
         return particulares;
     }
 }

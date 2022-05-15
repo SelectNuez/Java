@@ -51,16 +51,24 @@ public class index {
     }
 
     public static void MostrarProductos() {
-        for (Map.Entry<String, Integer> entrada : inventario.entrySet()) {
-            String producto = entrada.getKey();
-            int stock = entrada.getValue();
-            JOptionPane.showMessageDialog(null, "Producto: " + producto
-                    + "\nStock : " + stock);
+        if (index.HashVacio()) {
+            JOptionPane.showMessageDialog(null, "La lista esta vacia");
+        } else {
+            for (Map.Entry<String, Integer> entrada : inventario.entrySet()) {
+                String producto = entrada.getKey();
+                int stock = entrada.getValue();
+                JOptionPane.showMessageDialog(null, "Producto: " + producto
+                        + "\nStock : " + stock);
+            }
         }
     }
 
     public void EliminarProductos(String producto) {
         inventario.remove(producto);
+    }
+
+    public static boolean HashVacio() {
+        return inventario.isEmpty();
     }
 
 }
