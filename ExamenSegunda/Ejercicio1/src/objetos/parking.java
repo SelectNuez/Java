@@ -12,13 +12,11 @@ public class parking {
     private ArrayList<Coche> particulares;
 
     public parking() {
-        try{
-        datos datos = new datos();
-        residentes = datos.meterDatosresidentes();
-        particulares = datos.meterDatosParticulares();
-        }
-        catch(Exception e)
-        {
+        try {
+            datos datos = new datos();
+            residentes = datos.meterDatosresidentes();
+            particulares = datos.meterDatosParticulares();
+        } catch (Exception e) {
             System.out.println("Ha fallado la importacion de datos");
         }
     }
@@ -116,7 +114,8 @@ public class parking {
                 particular.setPagado(true);
             }
         }
-
         return mensaje;
     }
-}
+
+
+}//Fin de clase
