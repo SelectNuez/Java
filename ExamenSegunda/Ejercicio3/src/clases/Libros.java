@@ -8,7 +8,7 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.JOptionPane;
-import util.date;
+import utilidades.date;
 
 /**
  *
